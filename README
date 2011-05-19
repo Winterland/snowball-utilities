@@ -1,0 +1,11 @@
+This is a collection of nice little utilities that a Snowball-developer might find useful.
+
+newmac.c
+
+A program to set the MAC address of the Snowball.
+
+riff_new_<something>
+
+One-liners for replacing certain elements in the bootloader partition
+
+

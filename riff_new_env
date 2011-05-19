@@ -1,0 +1,1 @@
+sudo riff -m flash -a 0xC3F000 -f $1

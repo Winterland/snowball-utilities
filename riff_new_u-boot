@@ -1,0 +1,1 @@
+sudo riff -m flash -a 0xBC0000 -f $1
