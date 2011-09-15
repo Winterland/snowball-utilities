@@ -3,7 +3,7 @@
  * This programs the 9221 Ethernet device mapped at 0x5000.0000 on 16 bits.
  * Note that you must have the ethernet down during this operation.
  *
- * Alessandro Rubini, 2011 (under contract with ST-E)
+ * Alessandro Rubini, 2011 (under contract with ST-Ericsson AG)
  * GNU GPL v2 or later.
  */
 #include <stdio.h>
@@ -155,13 +155,12 @@ int main(int argc, char **argv)
 	}
 	if (!strcmp(argv[1], "-r")) {
 		int fd;
-		/* random: use SB + 4 random bytes -- 'S' is local addr */
-		macaddr[0] = 'S';
-		macaddr[1] = 'B';
 		fd = open("/dev/urandom", O_RDONLY);
 		if (fd < 0) FATAL;
-		if (read(fd, macaddr+2, 4) != 4) FATAL;
+		if (read(fd, macaddr, 6) != 6) FATAL;
 		close(fd);
+		macaddr[0] &= 0xfe;	/* clear multicast bit */
+		macaddr[0] |= 0x02;	/* set local assignment bit (IEEE802) */
 	} else {
 		i = sscanf(argv[1], "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
 			   macaddr+0, macaddr+1, macaddr+2, macaddr+3,
